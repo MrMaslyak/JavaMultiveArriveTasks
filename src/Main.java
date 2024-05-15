@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
@@ -29,6 +29,7 @@ public class Main {
                 {10, 11, 12},
                 {13, 14, 15}
         };
+
         System.out.println("Summary multi array: " + SumMltArray(array));
         System.out.println("Avarage multi array: " + AvarageMltArray(array));
 
@@ -79,6 +80,12 @@ public class Main {
         System.out.println("Search volme elemets: " + countElementsLessThan(arrayFive, 12));
 
         System.out.println("Уникальность массива: " + checkUniquenessElements(array));
+        System.out.println();
+        System.out.println("*************************************************************************************************************************************************");
+        System.out.println("Дополнительная Задача для практики)) (Не на баллы только)");
+        int[][] seaField = new int[5][5];
+        fillSeaField(seaField);
+        printSeaField(seaField);
     }
 
     public static int SumMltArray(int[][] array) {
@@ -277,10 +284,10 @@ public class Main {
 
     public static boolean checkUniquenessElements(int[][] array) {
         for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[i].length ; j++) {
+            for (int j = 0; j < array[i].length; j++) {
                 for (int k = 0; k < array.length; k++) {
-                    for (int l = 0; l < array[k].length ; l++) {
-                        if ((i != k || j != l) && array[i][j] == array[k][l]){
+                    for (int l = 0; l < array[k].length; l++) {
+                        if ((i != k || j != l) && array[i][j] == array[k][l]) {
                             return false;
                         }
                     }
@@ -290,5 +297,48 @@ public class Main {
         return true;
     }
 
+    //Дополнительная задача, которая сделана для того чтобы по практиковаться))
+    /*Последний раздел со звездочкой: без подсказок и примеров. Матрицы идеально подходят для программирования игры морской бой.
+    Одним из этапов программирования данной игры является расстановка кораблей на игровом поле. Если вы решите ряд данных задач, будьте уверены, морской бой вам по зубам.
+   Итак, дана матрица 10х10, состоящая из нулей.
+    Предположим, что она является полем для игры в морской бой. В данном поле 0 — пустая ячейка, 1 — корабль, либо часть корабля.
+    Написать функции, каждая из которых по правилам игры морской бой расставляет случайным образом:
+      все корабли для игры в морской бой (4 однопалубных, 3 двухпалубных, 2 трехпалубных, 1 четырехпалубный).
+     */
+    public static void fillSeaField(int[][] seaField) {
+        Random random = new Random();
+        int onesCount = 0;
+        int twosCount = 0;
+        int threesCount = 0;
+        int fourCount = 0;
+        for (int i = 0; i < seaField.length; i++) {
+            for (int j = 0; j < seaField[i].length; j++) {
+                int randomNumber = random.nextInt(4) + 1; // Генерация числа от 1 до 3
+                if (randomNumber == 1 && onesCount <= 3) {
+                    seaField[i][j] = randomNumber;
+                    onesCount++;
+                } else if (randomNumber == 2 && twosCount <= 2) {
+                    seaField[i][j] = randomNumber;
+                    twosCount++;
+                } else if (randomNumber == 3 && threesCount <= 1) {
+                    seaField[i][j] = randomNumber;
+                    threesCount++;
+                } else if (randomNumber == 4 && fourCount <= 1) {
+                    seaField[i][j] = randomNumber;
+                    fourCount++;
+                } else {
+                    seaField[i][j] = 0;
+                }
+            }
+        }
+    }
 
+    public static void printSeaField(int[][] seaField) {
+        for (int i = 0; i < seaField.length; i++) {
+            for (int j = 0; j < seaField[i].length; j++) {
+                System.out.print(seaField[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
 }
